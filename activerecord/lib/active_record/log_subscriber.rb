@@ -17,6 +17,8 @@ module ActiveRecord
 
     def sql(event)
       self.class.runtime += event.duration
+      uuid = SecureRandom.uuid
+      ::Rails.logger.info "sql(event)-----------------#{uuid.inspect}-----------------------------#{event.method(:duration).source_location.inspect}--------------------"
       return unless logger.debug?
 
       payload = event.payload
