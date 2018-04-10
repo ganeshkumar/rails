@@ -162,6 +162,10 @@ module ActiveSupport
       end
 
       def instrument(name, payload = {})
+        uuid = SecureRandom.uuid
+        ::Rails.logger.info "instrument----------#{name.inspect}-----------------------------------#{uuid.inspect}--------------------"
+        ::Rails.logger.info "instrument----------#{payload.inspect}-----------------------------------#{uuid.inspect}--------------------"
+
         if notifier.listening?(name)
           instrumenter.instrument(name, payload) { yield payload if block_given? }
         else
