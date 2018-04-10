@@ -601,10 +601,11 @@ module ActiveRecord
         end
 
         def log(sql, name = "SQL", binds = [], type_casted_binds = [], statement_name = nil) # :doc:
+          uuid = SecureRandom.uuid
           # ::Rails.logger.info "sql---------------------------------------------#{sql.inspect}--------------------"
-          ::Rails.logger.info "name---------------------------------------------#{name.inspect}--------------------"
-          ::Rails.logger.info "binds---------------------------------------------#{binds.inspect}--------------------"
-          ::Rails.logger.info "type_casted_binds---------------------------------------------#{type_casted_binds.inspect}--------------------"
+          ::Rails.logger.info "name-----------------------------#{uuid.inspect}----------------#{name.inspect}--------------------"
+          ::Rails.logger.info "binds----------------------------#{uuid.inspect}-----------------#{binds.inspect}--------------------"
+          ::Rails.logger.info "type_casted_binds-----------------#{uuid.inspect}----------------------------#{type_casted_binds.inspect}--------------------"
           ::Rails.logger.info "statement_name---------------------------------------------#{statement_name.inspect}--------------------"
           # ::Rails.logger.info "object_id---------------------------------------------#{object_id.inspect}--------------------"
           result = nil
@@ -622,7 +623,7 @@ module ActiveRecord
                 end
               end
           end
-          ::Rails.logger.info "******************#{sql.inspect} ****************************** REAL TIME: #{time_taken} seconds"
+          ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{time_taken} seconds"
           result
         rescue => e
           raise translate_exception_class(e, sql)
