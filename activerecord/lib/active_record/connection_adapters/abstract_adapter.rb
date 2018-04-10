@@ -601,6 +601,7 @@ module ActiveRecord
         end
 
         def log(sql, name = "SQL", binds = [], type_casted_binds = [], statement_name = nil) # :doc:
+          ::Rails.logger.info "just checking-----------------------------------------------------------------"
           @instrumenter.instrument(
             "sql.active_record",
             sql:               sql,
