@@ -162,8 +162,8 @@ module ActiveSupport
       end
 
       def instrument(name, payload = {})
-        # ::Rails.logger.info "instrument----------#{name.inspect}-----------------------------------#{uuid.inspect}--------------------"
-        # ::Rails.logger.info "instrument----------#{payload.inspect}-----------------------------------#{uuid.inspect}--------------------"
+        ::Rails.logger.info "instrument----------#{name.inspect}-----------------------------------#{uuid.inspect}--------------------"
+        ::Rails.logger.info "instrument----------#{payload.inspect}-----------------------------------#{uuid.inspect}--------------------"
 
         if notifier.listening?(name)
           instrumenter.instrument(name, payload) { yield payload if block_given? }
@@ -208,7 +208,6 @@ module ActiveSupport
       end
 
       def instrumenter_for(notifier)
-        ::Rails.logger.info "notifier----------#{notifier.inspect}------------------------------------------------------"
         @registry[notifier] ||= Instrumenter.new(notifier)
       end
     end
