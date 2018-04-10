@@ -601,14 +601,14 @@ module ActiveRecord
         end
 
         def log(sql, name = "SQL", binds = [], type_casted_binds = [], statement_name = nil) # :doc:
-          uuid = SecureRandom.uuid
-          ::Rails.logger.info "sql---------------------------------------------#{sql.inspect}--------------------"
-          ::Rails.logger.info "name-----------------------------#{uuid.inspect}----------------#{name.inspect}--------------------"
-          ::Rails.logger.info "binds----------------------------#{uuid.inspect}-----------------#{binds.inspect}--------------------"
-          ::Rails.logger.info "type_casted_binds-----------------#{uuid.inspect}----------------------------#{type_casted_binds.inspect}--------------------"
-          ::Rails.logger.info "statement_name--------------------#{uuid.inspect}-------------------------#{statement_name.inspect}--------------------"
-          ::Rails.logger.info "object_id-------------------------#{uuid.inspect}--------------------#{object_id.inspect}--------------------"
-          ::Rails.logger.info "instumentor original location-------------------------#{@instrumenter.method(:instrument).source_location.inspect}---------------------------------------"
+          # uuid = SecureRandom.uuid
+          # ::Rails.logger.info "sql---------------------------------------------#{sql.inspect}--------------------"
+          # ::Rails.logger.info "name-----------------------------#{uuid.inspect}----------------#{name.inspect}--------------------"
+          # ::Rails.logger.info "binds----------------------------#{uuid.inspect}-----------------#{binds.inspect}--------------------"
+          # ::Rails.logger.info "type_casted_binds-----------------#{uuid.inspect}----------------------------#{type_casted_binds.inspect}--------------------"
+          # ::Rails.logger.info "statement_name--------------------#{uuid.inspect}-------------------------#{statement_name.inspect}--------------------"
+          # ::Rails.logger.info "object_id-------------------------#{uuid.inspect}--------------------#{object_id.inspect}--------------------"
+          # ::Rails.logger.info "instumentor original location-------------------------#{@instrumenter.method(:instrument).source_location.inspect}---------------------------------------"
 
           @instrumenter.instrument(
             "sql.active_record",
