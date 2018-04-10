@@ -601,7 +601,13 @@ module ActiveRecord
         end
 
         def log(sql, name = "SQL", binds = [], type_casted_binds = [], statement_name = nil) # :doc:
-          ::Rails.logger.info "just checking-----------------------------------------------------------------"
+          ::Rails.logger.info "sql---------------------------------------------#{sql.inspect}--------------------"
+          ::Rails.logger.info "name---------------------------------------------#{name.inspect}--------------------"
+          ::Rails.logger.info "binds---------------------------------------------#{binds.inspect}--------------------"
+          ::Rails.logger.info "type_casted_binds---------------------------------------------#{type_casted_binds.inspect}--------------------"
+          ::Rails.logger.info "statement_name---------------------------------------------#{statement_name.inspect}--------------------"
+          ::Rails.logger.info "object_id---------------------------------------------#{object_id.inspect}--------------------"
+
           @instrumenter.instrument(
             "sql.active_record",
             sql:               sql,
