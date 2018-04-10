@@ -19,6 +19,7 @@ module ActiveSupport
         uuid = SecureRandom.uuid
         ::Rails.logger.info "name-----------------#{uuid.inspect}-----------------------------#{name.inspect}--------------------"
         ::Rails.logger.info "payload-----------------------------#{uuid.inspect}----------------#{payload.inspect}--------------------"
+        ::Rails.logger.info "@notifier-----------------------------#{uuid.inspect}----------------#{@notifier.inspect}--------------------"
 
         # some of the listeners might have state
         listeners_state = start name, payload
