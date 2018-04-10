@@ -623,6 +623,7 @@ module ActiveRecord
               end
           end
           ::Rails.logger.info "******************#{sql.inspect} ****************************** REAL TIME: #{time_taken} seconds"
+          result
         rescue => e
           raise translate_exception_class(e, sql)
         end
