@@ -608,23 +608,38 @@ module ActiveRecord
           ::Rails.logger.info "type_casted_binds-----------------#{uuid.inspect}----------------------------#{type_casted_binds.inspect}--------------------"
           ::Rails.logger.info "statement_name--------------------#{uuid.inspect}-------------------------#{statement_name.inspect}--------------------"
           ::Rails.logger.info "object_id-------------------------#{uuid.inspect}--------------------#{object_id.inspect}--------------------"
-          result = nil
-          time_taken = Benchmark.realtime do
-            result = @instrumenter.instrument(
-              "sql.active_record",
-              sql:               sql,
-              name:              name,
-              binds:             binds,
-              type_casted_binds: type_casted_binds,
-              statement_name:    statement_name,
-              connection_id:     object_id) do
-                @lock.synchronize do
-                  yield
-                end
-              end
+          ::Rails.logger.info "instumentor original location-------------------------#{@instrumenter.method(:instrument).source_location.inspect}---------------------------------------"
+
+          @instrumenter.instrument(
+            "sql.active_record",
+            sql:               sql,
+            name:              name,
+            binds:             binds,
+            type_casted_binds: type_casted_binds,
+            statement_name:    statement_name,
+            connection_id:     object_id) do
+            @lock.synchronize do
+              yield
+            end
           end
-          ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{time_taken} seconds"
-          result
+
+          # result = nil
+          # time_taken = Benchmark.realtime do
+          #   result = @instrumenter.instrument(
+          #     "sql.active_record",
+          #     sql:               sql,
+          #     name:              name,
+          #     binds:             binds,
+          #     type_casted_binds: type_casted_binds,
+          #     statement_name:    statement_name,
+          #     connection_id:     object_id) do
+          #       @lock.synchronize do
+          #         yield
+          #       end
+          #     end
+          # end
+          # ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{time_taken} seconds"
+          # result
         rescue => e
           raise translate_exception_class(e, sql)
         end
