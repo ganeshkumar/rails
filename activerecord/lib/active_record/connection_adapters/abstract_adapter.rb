@@ -635,7 +635,7 @@ module ActiveRecord
               statement_name:    statement_name,
               connection_id:     object_id) do
                 time_taken_synchronize = Benchmark.realtime do
-                 result1 = @lock.synchronize do
+                  result1 = @lock.synchronize do
                     yield
                   end
                 end
