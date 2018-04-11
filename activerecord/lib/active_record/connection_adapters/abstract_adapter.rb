@@ -624,6 +624,8 @@ module ActiveRecord
           # end
 
           result = nil
+          start_time = nil
+          end_time = nil
           time_taken_instrument = Benchmark.realtime do
             result = @instrumenter.instrument(
               "sql.active_record",
@@ -639,7 +641,6 @@ module ActiveRecord
                   end
                   end_time = Time.now.utc
                 end
-              end
           end
           ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{time_taken_instrument} seconds"
           ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{end_time-start_time} seconds"
