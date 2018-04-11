@@ -641,8 +641,8 @@ module ActiveRecord
                    result1 = yield
                   end
                   end_time = Time.now.utc
+                  result1
               end
-            result1
           end
           ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{time_taken_instrument} seconds"
           ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{end_time-start_time} seconds"
