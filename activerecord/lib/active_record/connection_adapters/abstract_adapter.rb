@@ -624,6 +624,7 @@ module ActiveRecord
           # end
 
           result = nil
+          result1 = nil
           start_time = nil
           end_time = nil
           time_taken_instrument = Benchmark.realtime do
@@ -637,11 +638,12 @@ module ActiveRecord
               connection_id:     object_id) do
                   start_time = Time.now.utc
                   @lock.synchronize do
-                    yield
+                   result1 = yield
                   end
-                end
+                  end_time = Time.now.utc
+              end
+            result1
           end
-          end_time = Time.now.utc
           ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{time_taken_instrument} seconds"
           ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{end_time-start_time} seconds"
           result
