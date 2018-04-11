@@ -15,11 +15,6 @@ module ActiveSupport
       # and publish it. Notice that events get sent even if an error occurs
       # in the passed-in block.
       def instrument(name, payload = {})
-
-        uuid = SecureRandom.uuid
-        ::Rails.logger.info "name-----------------#{uuid.inspect}-----------------------------#{name.inspect}--------------------"
-        ::Rails.logger.info "payload-----------------------------#{uuid.inspect}----------------#{payload.inspect}--------------------"
-
         # some of the listeners might have state
         listeners_state = start name, payload
         begin
