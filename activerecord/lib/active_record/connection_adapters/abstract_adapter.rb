@@ -624,7 +624,6 @@ module ActiveRecord
           # end
 
           result = nil
-          result1 = nil
           time_taken_instrument = Benchmark.realtime do
             result = @instrumenter.instrument(
               "sql.active_record",
@@ -634,16 +633,16 @@ module ActiveRecord
               type_casted_binds: type_casted_binds,
               statement_name:    statement_name,
               connection_id:     object_id) do
-                time_taken_synchronize = Benchmark.realtime do
-                  result1 = @lock.synchronize do
+                  start_time = Time.now.utc
+                  @lock.synchronize do
                     yield
                   end
+                  end_time = Time.now.utc
                 end
-                result1
               end
           end
           ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{time_taken_instrument} seconds"
-          ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{time_taken_synchronize} seconds"
+          ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{end_time-start_time} seconds"
           result
         rescue => e
           raise translate_exception_class(e, sql)
