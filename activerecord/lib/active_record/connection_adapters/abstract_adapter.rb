@@ -639,9 +639,9 @@ module ActiveRecord
                   @lock.synchronize do
                     yield
                   end
-                  end_time = Time.now.utc
                 end
           end
+          end_time = Time.now.utc
           ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{time_taken_instrument} seconds"
           ::Rails.logger.info "******************#{sql.inspect} *********#{uuid.inspect}********************* REAL TIME: #{end_time-start_time} seconds"
           result
